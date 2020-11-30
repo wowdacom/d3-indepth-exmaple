@@ -1,26 +1,39 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <!-- <Selections></Selections> -->
+  <!-- <Datajoins></Datajoins> -->
+  <Enterexit></Enterexit>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+// import chartData from "./assets/chart.json";
+// import Selections from "./components/Selections.vue";
+// import Datajoins from "./components/Datajoins.vue";
+import Enterexit from "./components/Enterexit.vue";
 
 export default {
-  name: 'App',
+  name: "App",
+  data() {
+    return {
+      chart: null,
+      chartData: [],
+    };
+  },
   components: {
-    HelloWorld
-  }
-}
+    // Selections,
+    // Datajoins,
+    Enterexit
+  },
+  mounted() {
+
+  },
+  methods: {
+ 
+  },
+};
 </script>
 
-<style>
+<style lang="scss">
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+  
 }
 </style>

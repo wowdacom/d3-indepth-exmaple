@@ -1,0 +1,43 @@
+{
+    "webCaseHistoryPrice": [{
+        "priceChgDate": "2020/06",
+        "priceChg": 4150
+    }, {
+        "priceChgDate": "2019/08",
+        "priceChg": 4250
+    }, {
+        "priceChgDate": "2019/07",
+        "priceChg": 4166
+    }, {
+        "priceChgDate": "2019/01",
+        "priceChg": 4250
+    }, {
+        "priceChgDate": "2018/12",
+        "priceChg": 4296
+    }, {
+        "priceChgDate": "2018/03",
+        "priceChg": 4250
+    }, {
+        "priceChgDate": "2017/09",
+        "priceChg": 4296
+    }, {
+        "priceChgDate": "2017/03",
+        "priceChg": 4480
+    }, {
+        "priceChgDate": "2016/05",
+        "priceChg": 4638
+    }, {
+        "priceChgDate": "2016/03",
+        "priceChg": 4700
+    }, {
+        "priceChgDate": "2016/01",
+        "priceChg": 4638
+    }],
+    "newDownPriceDate": "2020/06",
+    "newKeyInDate": "2016-01-12T00:00:00",
+    "highPrice": 4700,
+    "highPriceDate": "2016年3月",
+    "lowPrice": 4150,
+    "lowPriceDate": "2020年6月",
+    "diffPrice": 550
+}
