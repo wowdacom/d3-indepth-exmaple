@@ -19,6 +19,40 @@
     <h1>Chart 5</h1>
     <svg id="scale5"></svg>
   </div>
+  <div class="container">
+    <h1>Chart 6</h1>
+    <svg id="scale6"></svg>
+    <button @click="handleScale6">Change Scale</button>
+  </div>
+  <div class="container">
+    <h1>Chart 7</h1>
+    <svg id="scale7"></svg>
+  </div>
+  <div class="container">
+    <h1>Chart 8</h1>
+    <svg id="scale8"></svg>
+    <div class="info">Click on the grey band</div>
+  </div>
+  <div class="container">
+    <h1>Chart 9</h1>
+    <svg id="scale9"></svg>
+  </div>
+  <div class="container">
+    <h1>Chart 10</h1>
+    <svg id="scale10"></svg>
+  </div>
+  <div class="container">
+    <h1>Chart 11</h1>
+    <svg id="scale11"></svg>
+  </div>
+  <div class="container">
+    <h1>Chart 12</h1>
+    <svg id="scale12"></svg>
+  </div>
+  <div class="container">
+    <h1>Chart 13</h1>
+    <svg id="scale13"></svg>
+  </div>
 </template>
 
 <script>
@@ -28,7 +62,9 @@ import * as d3 from "d3";
 export default {
   name: "Scales",
   data() {
-    return {};
+    return {
+      isMeasure: true,
+    };
   },
   components: {},
   mounted() {
@@ -37,6 +73,14 @@ export default {
     this.handleScale3();
     this.handleScale4();
     this.handleScale5();
+    this.handleScale6();
+    this.handleScale7();
+    this.handleScale8();
+    this.handleScale9();
+    this.handleScale10();
+    this.handleScale11();
+    this.handleScale12();
+    this.handleScale13();
   },
   methods: {
     handleScale1() {
@@ -137,7 +181,6 @@ export default {
         .text((d) => d)
         .attr("r", 5)
         .attr("x", function (d) {
-          console.log(logScale(d));
           return logScale(d);
         })
         .attr("y", 40);
@@ -198,20 +241,382 @@ export default {
 
       let myData = [0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100];
 
-      let svg = d3.select("#scale5")
-      svg.attr("width", 700).attr("height", 80)
+      let svg = d3.select("#scale5");
+      svg.attr("width", 700).attr("height", 80);
 
-      let g = svg.append("g").attr("transform", "translate(40, 0)")
-      
-      g.selectAll("circle").data(myData).enter().append("circle").attr("r", 5).attr("cx", function(d){
-        return linearScale(d)
-      }).attr("cy", 40).attr("fill", function(d){ return sequentialScale(d) })
+      let g = svg.append("g").attr("transform", "translate(40, 0)");
 
+      g.selectAll("circle")
+        .data(myData)
+        .enter()
+        .append("circle")
+        .attr("r", 5)
+        .attr("cx", function (d) {
+          return linearScale(d);
+        })
+        .attr("cy", 40)
+        .attr("fill", function (d) {
+          return sequentialScale(d);
+        });
     },
+    handleScale6() {
+      let data = [0.243, 0.584, 0.987, 0.153, 0.433];
+      let extent = d3.extent(data);
+
+      let width = 700;
+      let height = 80;
+      let margin = {
+        left: 10,
+        right: 10,
+        top: 10,
+        bottom: 10,
+      };
+      let innerWidth = width - margin.left - margin.right;
+
+      let linearScale = d3.scaleLinear().domain(extent).range([0, innerWidth]);
+
+      d3.selectAll(".tick").remove();
+      if (this.isMeasure) {
+        linearScale.nice();
+      }
+
+      let svg = d3.select("#scale6");
+      svg.attr("width", width).attr("height", height);
+
+      let axis = d3.axisBottom(linearScale);
+
+      let g = svg
+        .append("g")
+        .attr("class", "tick")
+        .attr("transform", `translate(${margin.left},0)`);
+
+      g.attr("class", "axis").call(axis);
+
+      this.isMeasure = !this.isMeasure;
+    },
+    handleScale7() {
+      let linearScale = d3.scaleLinear().domain([-100, 100]).range([0, 600]);
+      let linearScaleColor = d3
+        .scaleLinear()
+        .domain([-100, 0, 100])
+        .range(["red", "#ddd", "blue"]);
+
+      let myData = [-100, -80, -60, -40, -20, 0, 20, 40, 60, 80, 100];
+
+      let svg = d3.select("#scale7");
+      svg.attr("width", 700).attr("height", 80);
+
+      let g = svg.append("g").attr("transform", "translate(40, 0)");
+
+      g.selectAll("circle")
+        .data(myData)
+        .enter()
+        .append("circle")
+        .attr("r", 5)
+        .attr("cx", function (d) {
+          return linearScale(d);
+        })
+        .attr("cy", 40)
+        .attr("fill", function (d) {
+          return linearScaleColor(d);
+        });
+    },
+    handleScale8() {
+      let svg = d3.select("#scale8");
+      let width = 700;
+      let height = 80;
+      let margin = {
+        left: 10,
+        right: 10,
+        top: 10,
+        bottom: 10,
+      };
+      let innerWidth = width - margin.left - margin.right;
+      let innerHeight = height - margin.top - margin.bottom;
+      let linearScale = d3
+        .scaleLinear()
+        .domain([-50, 50])
+        .range([0, innerWidth]);
+      let touchBoxHeight = (80 / 4) * 3;
+
+      let axis = d3.axisBottom(linearScale);
+
+      svg.attr("width", width).attr("height", height);
+
+      svg
+        .append("rect")
+        .attr("class", "touch-area")
+        .attr("width", innerWidth)
+        .attr("height", touchBoxHeight)
+        .attr("fill", "gray")
+        .attr("transform", `translate(${margin.left}, 0)`)
+        .on("click", function (event) {
+          let pos = d3.pointer(event, this);
+          let xPos = pos[0];
+          let value = linearScale.invert(xPos);
+          d3.select(".info").text("You click " + value.toFixed(2));
+        });
+
+      let g = svg
+        .append("g")
+        .attr("class", "tick")
+        .attr("transform", `translate(${margin.left},${innerHeight})`);
+
+      g.attr("class", "axisX").call(axis);
+    },
+    handleScale9() {
+      let myData = d3.range(0, 100);
+      let width = 700;
+      let height = 80;
+      let margin = {
+        left: 10,
+        right: 10,
+        top: 10,
+        bottom: 10,
+      };
+      let innerWidth = width - margin.left - margin.right;
+      let innerHeight = height - margin.top - margin.bottom;
+      let quantizeScale = d3
+        .scaleQuantize()
+        .domain([0, 100])
+        .range(["lightblue", "orange", "lightgreen", "pink"]);
+
+      let linearScale = d3
+        .scaleLinear()
+        .domain([0, 100])
+        .range([0, innerWidth]);
+
+      let svg = d3
+        .select("#scale9")
+        .attr("width", width)
+        .attr("height", height);
+      let g = svg.append("g").attr("transform", `translate(${margin.left}, 0)`);
+      g.selectAll("rect")
+        .data(myData)
+        .enter()
+        .append("rect")
+        .attr("x", function (d) {
+          return linearScale(d);
+        })
+        .attr("y", margin.top)
+        .attr("width", (innerWidth / myData.length) * 0.5)
+        .attr("height", innerHeight)
+        .attr("fill", function (d) {
+          return quantizeScale(d);
+        });
+    },
+    handleScale10() {
+      let myData = [0, 5, 7, 10, 20, 30, 35, 40, 60, 62, 65, 70, 80, 90, 100];
+      let extent = d3.extent(myData);
+      let quantileScale = d3
+        .scaleQuantize()
+        .domain(extent)
+        .range(["lightblue", "orange", "lightgreen", "pink"]);
+
+      let width = 700;
+      let height = 80;
+      let margin = {
+        left: 10,
+        right: 10,
+        top: 10,
+        bottom: 10,
+      };
+      let innerWidth = width - margin.left - margin.right;
+      let innerHeight = height - margin.top - margin.bottom;
+      let linearScale = d3.scaleLinear().domain(extent).range([0, innerWidth]);
+
+      let svg = d3
+        .select("#scale10")
+        .attr("width", width)
+        .attr("height", height);
+      let g = svg
+        .append("g")
+        .attr(
+          "transform",
+          `translate(${margin.left}, ${innerHeight / 2 - 2.5})`
+        );
+      g.selectAll("circle")
+        .data(myData)
+        .enter()
+        .append("circle")
+        .attr("r", 5)
+        .attr("cx", (d) => {
+          return linearScale(d);
+        })
+        .attr("cy", margin.top)
+        .attr("fill", function (d) {
+          return quantileScale(d);
+        });
+    },
+    handleScale11() {
+      let width = 700;
+      let height = 80;
+      let margin = {
+        left: 10,
+        right: 10,
+        top: 10,
+        bottom: 10,
+      };
+      let innerWidth = width - margin.left - margin.right;
+      let innerHeight = height - margin.top - margin.bottom;
+      let cells = d3.range(-100, 200, 2);
+      let extent = d3.extent(cells);
+      let linearScale = d3.scaleLinear().domain(extent).range([0, innerWidth]);
+
+      let thresholdScale = d3
+        .scaleThreshold()
+        .domain([-50, 50, 150])
+        .range(["#ccc", "lightblue", "orange", "#ccc"]);
+
+      let svg = d3
+        .select("#scale11")
+        .attr("width", width)
+        .attr("height", height);
+
+      let g = svg.append("g").attr("transform", `translate(${margin.left}, 0)`);
+      g.selectAll("rect")
+        .data(cells)
+        .enter()
+        .append("rect")
+        .attr("width", 3)
+        .attr("height", innerHeight)
+        .attr("x", function (d) {
+          return linearScale(d);
+        })
+        .attr("y", margin.top)
+        .attr("fill", function (d) {
+          return thresholdScale(d);
+        });
+    },
+    handleScale12() {
+      let myData = [
+        "Jan",
+        "Feb",
+        "Mar",
+        "Apr",
+        "May",
+        "Jun",
+        "Jul",
+        "Aug",
+        "Sep",
+        "Oct",
+        "Nov",
+        "Dec",
+      ];
+      let width = 700;
+      let height = 80;
+      let margin = {
+        left: 10,
+        right: 10,
+        top: 10,
+        bottom: 10,
+      };
+      let innerWidth = width - margin.left - margin.right;
+      let innerHieght = height - margin.top - margin.bottom;
+      let linearScale = d3
+        .scaleLinear()
+        .domain([0, myData.length])
+        .range([0, innerWidth]);
+
+      let ordinalScale = d3
+        .scaleOrdinal()
+        .domain(myData)
+        .range(["black", "#ccc", "#ccc"]);
+
+      let svg = d3
+        .select("#scale12")
+        .attr("width", width)
+        .attr("height", height);
+      let g = svg
+        .append("g")
+        .attr("width", innerWidth)
+        .attr("height", innerHieght)
+        .attr("transform", `translate(${margin.left}, ${innerHieght / 2})`);
+
+      g.selectAll("text")
+        .data(myData)
+        .enter()
+        .append("text")
+        .text(function (d) {
+          return d;
+        })
+        .attr("x", function (d, i) {
+          return linearScale(i);
+        })
+        .attr("y", margin.top)
+        .attr("fill", function (d) {
+          return ordinalScale(d);
+        });
+    },
+    handleScale13(){
+      let myData = [
+        "Jan",
+        "Feb",
+        "Mar",
+        "Apr",
+        "May",
+        "Jun",
+        "Jul",
+        "Aug",
+        "Sep",
+        "Oct",
+        "Nov",
+        "Dec",
+      ];
+      let width = 700;
+      let height = 80;
+      let margin = {
+        left: 10,
+        right: 10,
+        top: 10,
+        bottom: 10,
+      };
+      let innerWidth = width - margin.left - margin.right;
+      let innerHieght = height - margin.top - margin.bottom;
+      let linearScale = d3
+        .scaleLinear()
+        .domain([0, myData.length])
+        .range([0, innerWidth]);
+
+      let ordinalScale = d3
+        .scaleOrdinal()
+        .domain(myData)
+        .range(d3.schemePaired);
+
+      let svg = d3
+        .select("#scale13")
+        .attr("width", width)
+        .attr("height", height);
+      let g = svg
+        .append("g")
+        .attr("width", innerWidth)
+        .attr("height", innerHieght)
+        .attr("transform", `translate(${margin.left}, ${innerHieght / 2})`);
+
+      g.selectAll("text")
+        .data(myData)
+        .enter()
+        .append("text")
+        .text(function (d) {
+          return d;
+        })
+        .attr("x", function (d, i) {
+          return linearScale(i);
+        })
+        .attr("y", margin.top)
+        .attr("fill", function (d) {
+          return ordinalScale(d);
+        });
+    }
   },
 };
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style  lang="scss">
+<style lang="scss">
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 </style>
