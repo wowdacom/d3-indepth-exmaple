@@ -53,6 +53,10 @@
     <h1>Chart 13</h1>
     <svg id="scale13"></svg>
   </div>
+  <div class="container">
+    <h1>Chart 14</h1>
+    <svg id="scale14"></svg>
+  </div>
 </template>
 
 <script>
@@ -81,6 +85,7 @@ export default {
     this.handleScale11();
     this.handleScale12();
     this.handleScale13();
+    this.handleScale14();
   },
   methods: {
     handleScale1() {
@@ -512,7 +517,7 @@ export default {
         bottom: 10,
       };
       let innerWidth = width - margin.left - margin.right;
-      let innerHieght = height - margin.top - margin.bottom;
+      let innerHeight = height - margin.top - margin.bottom;
       let linearScale = d3
         .scaleLinear()
         .domain([0, myData.length])
@@ -530,8 +535,8 @@ export default {
       let g = svg
         .append("g")
         .attr("width", innerWidth)
-        .attr("height", innerHieght)
-        .attr("transform", `translate(${margin.left}, ${innerHieght / 2})`);
+        .attr("height", innerHeight)
+        .attr("transform", `translate(${margin.left}, ${innerHeight / 2})`);
 
       g.selectAll("text")
         .data(myData)
@@ -548,7 +553,7 @@ export default {
           return ordinalScale(d);
         });
     },
-    handleScale13(){
+    handleScale13() {
       let myData = [
         "Jan",
         "Feb",
@@ -572,7 +577,7 @@ export default {
         bottom: 10,
       };
       let innerWidth = width - margin.left - margin.right;
-      let innerHieght = height - margin.top - margin.bottom;
+      let innerHeight = height - margin.top - margin.bottom;
       let linearScale = d3
         .scaleLinear()
         .domain([0, myData.length])
@@ -590,8 +595,8 @@ export default {
       let g = svg
         .append("g")
         .attr("width", innerWidth)
-        .attr("height", innerHieght)
-        .attr("transform", `translate(${margin.left}, ${innerHieght / 2})`);
+        .attr("height", innerHeight)
+        .attr("transform", `translate(${margin.left}, ${innerHeight / 2})`);
 
       g.selectAll("text")
         .data(myData)
@@ -607,6 +612,99 @@ export default {
         .attr("fill", function (d) {
           return ordinalScale(d);
         });
+    },
+    handleScale14() {
+      let myData = [
+        {
+          score: 30,
+          name: 'Jim'
+        },
+        {
+          score: 60,
+          name: 'John'
+        },
+        {
+          score: 75,
+          name: 'Alex'
+        },
+        {
+          score: 25,
+          name: 'Peter'
+        },
+        {
+          score: 95,
+          name: 'Howard'
+        }
+      ]
+      let width = 300;
+      let height = 450;
+      let margin = {
+        left: 25,
+        right: 10,
+        top: 22,
+        bottom: 20,
+      };
+      let innerWidth = width - margin.left - margin.right;
+      let innerHeight = height - margin.top - margin.bottom;
+
+      //畫出基本的圖形
+      let svg = d3.select("#scale14")
+      let bandScale = d3.scaleBand()
+                        .domain(myData.map(item=>item.name))
+                        .range([0, innerWidth])
+      
+      let linearScale = d3.scaleLinear()
+                          .domain([0, 100])
+                          .range([0, innerHeight])
+                          .nice()
+
+      let scaleAxis = d3.scaleLinear()
+                          .domain([0, 100])
+                          .range([innerHeight, 0])
+                          .nice()
+
+      svg.attr("width", width).attr("height", height);
+
+      let g = svg.append("g").attr("width", innerWidth).attr("height", innerHeight).attr("transform", `translate(${margin.left}, ${margin.top})`);
+
+      g.selectAll("rect").data(myData).enter().append("rect").attr("width", (innerWidth/myData.length) - 5).attr("height", function(d){
+        return linearScale(d.score)
+      }).attr("fill", "orange").attr("x", function(d){
+        return bandScale(d.name)
+      }).attr("y", function(d){
+        return innerHeight - linearScale(d.score)
+      })
+
+
+      //加上 axisX axisY
+      let axisX = svg.append("g").attr("class", "yAxis").selectAll("text").data(myData).enter().append("text").text(function(d){
+        return d.name
+      })
+      let axisY = d3.axisLeft(scaleAxis);
+      axisX.attr("x", function(d){
+        return bandScale(d.name) + ((innerWidth/myData.length) - 5)/2
+      }).attr("y", innerHeight + margin.bottom)
+      .attr("transform", `translate(${margin.left}, ${margin.top})`)
+      .style("text-anchor", "middle");
+
+      let gY = svg
+        .append("g")
+        .attr("class", "tick")
+        .attr("transform", `translate(${margin.left}, ${margin.top})`);
+
+      gY.attr("class", "axisY").call(axisY);
+
+      //加上基準線
+      d3.selectAll("g.tick")
+        .append("line")
+        .attr("class", "gridline")
+        .attr("x1", 0)
+        .attr("y1", 0)
+        .attr("x2", innerWidth)
+        .attr("y2", 0)
+        .attr("stroke", "black")
+        .attr("shape-rendering", "crispEdges")
+        .attr("stroke-opacity", 0.1);
     }
   },
 };
