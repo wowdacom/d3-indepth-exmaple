@@ -41,6 +41,14 @@
     <h1>Chart 10</h1>
     <svg id="shape10"></svg>
   </div>
+  <div class="container">
+    <h1>Chart 11</h1>
+    <svg id="shape11"></svg>
+  </div>
+  <div class="container">
+    <h1>Chart 12</h1>
+    <svg id="shape12"></svg>
+  </div>
 </template>
 
 <script>
@@ -63,11 +71,13 @@ export default {
     this.initChart8();
     this.initChart9();
     this.initChart10();
+    this.initChart11();
+    this.initChart12();
   },
   methods: {
     initChart1() {
-      var lineGenerator = d3.line();
-      var points = [
+      let lineGenerator = d3.line();
+      let points = [
         [0, 80],
         [100, 100],
         [200, 30],
@@ -76,7 +86,7 @@ export default {
         [500, 80],
       ];
 
-      var pathData = lineGenerator(points);
+      let pathData = lineGenerator(points);
 
       // Select the path element and set its d attribute
       d3.select("path")
@@ -135,10 +145,7 @@ export default {
         .domain(d3.extent(orangeLine.map((item) => item.value)))
         .range([innerHeight, 0]);
 
-      let svg = d3
-        .select("#shape2")
-        .attr("width", width)
-        .attr("height", height);
+      let svg = d3.select("#shape2").attr("width", width).attr("height", height);
 
       let xAxis = d3.axisBottom(xScale);
       let yAxis = d3.axisLeft(yScale);
@@ -147,10 +154,7 @@ export default {
         .append("g")
         .attr("class", "xAxis")
         .call(xAxis)
-        .attr(
-          "transform",
-          `translate(${margin.left}, ${innerHeight + margin.top})`
-        );
+        .attr("transform", `translate(${margin.left}, ${innerHeight + margin.top})`);
       svg
         .append("g")
         .attr("class", "yAxis")
@@ -185,25 +189,15 @@ export default {
       let innerHeight = height - margin.top - margin.bottom;
       let points = [[0, 80], [100, 100], null, [300, 50], [400, 40], [500, 80]];
 
-      let svg = d3
-        .select("#shape3")
-        .attr("width", width)
-        .attr("height", height);
+      let svg = d3.select("#shape3").attr("width", width).attr("height", height);
 
-      let main = svg
-        .append("g")
-        .attr("width", innerWidth)
-        .attr("height", innerHeight);
+      let main = svg.append("g").attr("width", innerWidth).attr("height", innerHeight);
 
       let xScale = d3.scaleLinear().domain([-100, 600]).range([0, innerWidth]);
 
       let yScale = d3
         .scaleLinear()
-        .domain(
-          d3.extent(
-            points.filter((item) => item !== null).map((item) => item[1])
-          )
-        )
+        .domain(d3.extent(points.filter((item) => item !== null).map((item) => item[1])))
         .range([innerHeight, 0]);
 
       let xAxis = d3.axisBottom(xScale);
@@ -224,10 +218,7 @@ export default {
         .append("g")
         .attr("class", "xAxis")
         .call(xAxis)
-        .attr(
-          "transform",
-          `translate(${margin.left}, ${margin.top + innerHeight})`
-        );
+        .attr("transform", `translate(${margin.left}, ${margin.top + innerHeight})`);
       main
         .append("g")
         .attr("class", "yAxis")
@@ -285,15 +276,9 @@ export default {
         [500, 80],
       ];
 
-      let linearScaleX = d3
-        .scaleLinear()
-        .domain([-50, 550])
-        .range([0, innerWidth]);
+      let linearScaleX = d3.scaleLinear().domain([-50, 550]).range([0, innerWidth]);
 
-      let linearScaleY = d3
-        .scaleLinear()
-        .domain([-50, 150])
-        .range([innerHeight, 0]);
+      let linearScaleY = d3.scaleLinear().domain([-50, 150]).range([innerHeight, 0]);
 
       let lineGenerator = d3
         .line()
@@ -305,10 +290,7 @@ export default {
           return linearScaleY(d[1]);
         });
 
-      let svg = d3
-        .select("#shape4")
-        .attr("width", width)
-        .attr("height", height);
+      let svg = d3.select("#shape4").attr("width", width).attr("height", height);
       svg
         .append("g")
         .attr("width", innerWidth)
@@ -322,10 +304,7 @@ export default {
         .append("g")
         .attr("class", "axisX")
         .call(axisX)
-        .attr(
-          "transform",
-          `translate(${margin.left}, ${margin.top + innerHeight})`
-        );
+        .attr("transform", `translate(${margin.left}, ${margin.top + innerHeight})`);
       svg
         .append("g")
         .attr("class", "axisY")
@@ -393,10 +372,7 @@ export default {
         [Math.PI * 1.75, 80],
         [Math.PI * 2, 80],
       ];
-      let svg = d3
-        .select("#shape5")
-        .attr("width", width)
-        .attr("height", height);
+      let svg = d3.select("#shape5").attr("width", width).attr("height", height);
       let main = svg
         .append("g")
         .attr("width", innerWidth)
@@ -433,14 +409,8 @@ export default {
         [500, 80],
       ];
       let pathData = areaGenerator(points);
-      let svg = d3
-        .select("#shape6")
-        .attr("width", width)
-        .attr("height", height);
-      let main = svg
-        .append("g")
-        .attr("width", innerWidth)
-        .attr("height", innerHeight);
+      let svg = d3.select("#shape6").attr("width", width).attr("height", height);
+      let main = svg.append("g").attr("width", innerWidth).attr("height", innerHeight);
       main.append("path").attr("d", pathData);
     },
     initChart7() {
@@ -479,10 +449,7 @@ export default {
           return yScale(d.low);
         });
 
-      let svg = d3
-        .select("#shape7")
-        .attr("width", width)
-        .attr("height", height);
+      let svg = d3.select("#shape7").attr("width", width).attr("height", height);
       svg
         .append("g")
         .attr("width", innerWidth)
@@ -494,10 +461,7 @@ export default {
         .attr("class", "axisX")
         .call(xAxis)
         .attr("class", "xAxios")
-        .attr(
-          "transform",
-          `translate(${margin.left}, ${innerHeight + margin.top})`
-        );
+        .attr("transform", `translate(${margin.left}, ${innerHeight + margin.top})`);
       svg
         .append("g")
         .attr("class", "axisY")
@@ -520,7 +484,7 @@ export default {
         .attr("shape-rendering", "crispEdges")
         .attr("stroke-opacity", 0.1);
     },
-    initChart8 () {
+    initChart8() {
       let width = 700;
       let height = 200;
       let margin = {
@@ -532,36 +496,34 @@ export default {
       let innerWidth = width - margin.left - margin.right;
       let innerHeight = height - margin.top - margin.bottom;
       let points = [
-        {angle: 0, r0: 30, r1: 90},
-        {angle: Math.PI * 0.25, r0: 30, r1: 40},
-        {angle: Math.PI * 0.5, r0: 30, r1: 90},
-        {angle: Math.PI * 0.75, r0: 30, r1: 40},
-        {angle: Math.PI, r0: 30, r1: 90},
-        {angle: Math.PI * 1.25, r0: 30, r1: 40},
-        {angle: Math.PI * 1.5, r0: 30, r1: 90},
-        {angle: Math.PI * 1.75, r0: 30, r1: 40},
-        {angle: Math.PI * 2, r0: 30, r1: 90}
+        { angle: 0, r0: 30, r1: 90 },
+        { angle: Math.PI * 0.25, r0: 30, r1: 40 },
+        { angle: Math.PI * 0.5, r0: 30, r1: 90 },
+        { angle: Math.PI * 0.75, r0: 30, r1: 40 },
+        { angle: Math.PI, r0: 30, r1: 90 },
+        { angle: Math.PI * 1.25, r0: 30, r1: 40 },
+        { angle: Math.PI * 1.5, r0: 30, r1: 90 },
+        { angle: Math.PI * 1.75, r0: 30, r1: 40 },
+        { angle: Math.PI * 2, r0: 30, r1: 90 },
       ];
       let xScale = d3.scaleLinear().domain([-100, 600]).range([0, innerWidth]);
       let yScale = d3.scaleLinear().domain([0, 110]).range([innerHeight, 0]);
       let xAxis = d3.axisBottom(xScale);
       let yAxis = d3.axisLeft(yScale);
 
-      let radialAreaGenerator = d3.radialArea()
-      .angle(function(d) {
-        return d.angle;
-      })
-      .innerRadius(function(d) {
-        return d.r0;
-      })
-      .outerRadius(function(d) {
-        return d.r1;
-      });
+      let radialAreaGenerator = d3
+        .radialArea()
+        .angle(function (d) {
+          return d.angle;
+        })
+        .innerRadius(function (d) {
+          return d.r0;
+        })
+        .outerRadius(function (d) {
+          return d.r1;
+        });
 
-      let svg = d3
-        .select("#shape8")
-        .attr("width", width)
-        .attr("height", height);
+      let svg = d3.select("#shape8").attr("width", width).attr("height", height);
 
       svg
         .append("g")
@@ -573,10 +535,7 @@ export default {
         .append("g")
         .call(xAxis)
         .attr("class", "xAxios")
-        .attr(
-          "transform",
-          `translate(${margin.left}, ${innerHeight + margin.top})`
-        );
+        .attr("transform", `translate(${margin.left}, ${innerHeight + margin.top})`);
 
       svg
         .append("g")
@@ -594,10 +553,14 @@ export default {
         .attr("shape-rendering", "crispEdges")
         .attr("stroke-opacity", 0.1);
 
-      svg.append("g").append("path").attr("d", radialAreaGenerator(points)).attr("transform", `translate(100, 100)`).attr("fill", "red")
+      svg
+        .append("g")
+        .append("path")
+        .attr("d", radialAreaGenerator(points))
+        .attr("transform", `translate(100, 100)`)
+        .attr("fill", "red");
     },
-    initChart9 () {
-
+    initChart9() {
       let width = 700;
       let height = 200;
       let margin = {
@@ -609,22 +572,22 @@ export default {
       let innerWidth = width - margin.left - margin.right;
       let innerHeight = height - margin.top - margin.bottom;
       let data = [
-        {day: 'Mon', apricots: 120, blueberries: 180, cherries: 100},
-        {day: 'Tue', apricots: 60,  blueberries: 185, cherries: 105},
-        {day: 'Wed', apricots: 100, blueberries: 215, cherries: 110},
-        {day: 'Thu', apricots: 80,  blueberries: 230, cherries: 105},
-        {day: 'Fri', apricots: 120, blueberries: 240, cherries: 105}
+        { day: "Mon", apricots: 120, blueberries: 180, cherries: 100 },
+        { day: "Tue", apricots: 60, blueberries: 185, cherries: 105 },
+        { day: "Wed", apricots: 100, blueberries: 215, cherries: 110 },
+        { day: "Thu", apricots: 80, blueberries: 230, cherries: 105 },
+        { day: "Fri", apricots: 120, blueberries: 240, cherries: 105 },
       ];
       let xScale = d3.scaleLinear().domain([0, 600]).range([0, innerWidth]);
-      let yScale = d3.scaleBand().domain(data.map(item=>item.day)).range([0, innerHeight])
+      let yScale = d3
+        .scaleBand()
+        .domain(data.map((item) => item.day))
+        .range([0, innerHeight]);
       let xAxis = d3.axisBottom(xScale);
       let yAxis = d3.axisLeft(yScale);
-      var colors = ['#FBB65B', '#513551', '#de3163'];
+      let colors = ["#FBB65B", "#513551", "#de3163"];
 
-      let svg = d3
-        .select("#shape9")
-        .attr("width", width)
-        .attr("height", height);
+      let svg = d3.select("#shape9").attr("width", width).attr("height", height);
 
       svg
         .append("g")
@@ -636,10 +599,7 @@ export default {
         .append("g")
         .call(xAxis)
         .attr("class", "xAxios")
-        .attr(
-          "transform",
-          `translate(${margin.left}, ${innerHeight + margin.top})`
-        );
+        .attr("transform", `translate(${margin.left}, ${innerHeight + margin.top})`);
 
       svg
         .append("g")
@@ -657,44 +617,283 @@ export default {
         .attr("shape-rendering", "crispEdges")
         .attr("stroke-opacity", 0.1);
 
-      let myKeys = ['apricots', 'blueberries', 'cherries']
-      let stack = d3.stack()
-        .keys(myKeys);
+      let myKeys = ["apricots", "blueberries", "cherries"];
+      let stack = d3.stack().keys(myKeys);
 
       let stackedSeries = stack(data);
-      let levelBars = svg.append("g").selectAll("g").data(stackedSeries).enter().append("g")
-      .style('fill', function(d, i) {
-		return colors[i];
-  });
-  
-      levelBars.selectAll("rect").data(function(d){
-        return d
-      }).enter().append("rect")
-      .attr("width", function(d){
-        return xScale(d[1] - d[0])
-      })
-      .attr("height", 20)
-      .attr("x", function(d){
-        return xScale(d[0])
-      }).attr("y", function(d){
-        return yScale(d.data.day)
-      })
-      .attr("transform", `translate(${margin.left}, ${margin.top + 5})`);
+      let levelBars = svg
+        .append("g")
+        .selectAll("g")
+        .data(stackedSeries)
+        .enter()
+        .append("g")
+        .style("fill", function (d, i) {
+          return colors[i];
+        });
 
-    //  bars.selectAll("rect").data(function(d, i){})
-
-
+      levelBars
+        .selectAll("rect")
+        .data(function (d) {
+          return d;
+        })
+        .enter()
+        .append("rect")
+        .attr("width", function (d) {
+          return xScale(d[1] - d[0]);
+        })
+        .attr("height", 20)
+        .attr("x", function (d) {
+          return xScale(d[0]);
+        })
+        .attr("y", function (d) {
+          return yScale(d.data.day);
+        })
+        .attr("transform", `translate(${margin.left}, ${margin.top + 5})`);
     },
-    initChart10 () {
+    initChart10() {
+      let width = 700;
+      let height = 200;
+      let margin = {
+        left: 30,
+        right: 20,
+        top: 20,
+        bottom: 20,
+      };
+      let innerWidth = width - margin.left - margin.right;
+      let innerHeight = height - margin.top - margin.bottom;
+      let data = [
+        { day: "Mon", apricots: 120, blueberries: 180, cherries: 100 },
+        { day: "Tue", apricots: 60, blueberries: 185, cherries: 105 },
+        { day: "Wed", apricots: 100, blueberries: 215, cherries: 110 },
+        { day: "Thu", apricots: 80, blueberries: 230, cherries: 105 },
+        { day: "Fri", apricots: 120, blueberries: 240, cherries: 105 },
+      ];
+      let xScale = d3
+        .scalePoint()
+        .domain(data.map((item) => item.day))
+        .range([0, innerWidth]);
 
-    }
+      let yScale = d3.scaleLinear().domain([0, 600]).range([innerHeight, 0]);
+
+      let xAxis = d3.axisBottom(xScale);
+      let yAxis = d3.axisLeft(yScale);
+      let colors = ["#FBB65B", "#513551", "#de3163"];
+
+      let svg = d3.select("#shape10").attr("width", width).attr("height", height);
+
+      svg
+        .append("g")
+        .attr("width", innerWidth)
+        .attr("height", innerHeight)
+        .attr("transform", `translate(${margin.left}, ${margin.top})`);
+
+      svg
+        .append("g")
+        .call(xAxis)
+        .attr("class", "xAxios")
+        .attr("transform", `translate(${margin.left}, ${innerHeight + margin.top})`);
+
+      svg
+        .append("g")
+        .call(yAxis)
+        .attr("class", "yAxios")
+        .attr("transform", `translate(${margin.left}, ${margin.top})`);
+
+      d3.selectAll("g.yAxios g.tick")
+        .append("line")
+        .attr("x0", 0)
+        .attr("y0", 0)
+        .attr("x1", innerWidth)
+        .attr("y1", 0)
+        .attr("stroke", "black")
+        .attr("shape-rendering", "crispEdges")
+        .attr("stroke-opacity", 0.1);
+
+      let myKeys = ["apricots", "blueberries", "cherries"];
+      let stack = d3.stack().keys(myKeys);
+
+      let stackedSeries = stack(data);
+      let levelBars = svg
+        .append("g")
+        .selectAll("g")
+        .data(stackedSeries)
+        .enter()
+        .append("g");
+
+      let areaGenerator = d3
+        .area()
+        .x(function (d) {
+          return xScale(d.data.day);
+        })
+        .y0(function (d) {
+          return yScale(d[0]);
+        })
+        .y1(function (d) {
+          return yScale(d[1]);
+        });
+
+      levelBars
+        .append("path")
+        .attr("d", function (d) {
+          return areaGenerator(d);
+        })
+        .attr("transform", `translate(${margin.left}, ${margin.top})`)
+        .attr("fill", function (d, i) {
+          return colors[i];
+        });
+    },
+    initChart11() {
+      let width = 700;
+      let height = 200;
+      let margin = {
+        left: 30,
+        right: 20,
+        top: 20,
+        bottom: 20,
+      };
+      let innerWidth = width - margin.left - margin.right;
+      let innerHeight = height - margin.top - margin.bottom;
+      let data = [
+        { day: 1, apricots: 100, bananas: 140, cherries: 105, damsons: 80 },
+        { day: 2, apricots: 110, bananas: 150, cherries: 105, damsons: 40 },
+        { day: 3, apricots: 130, bananas: 160, cherries: 115, damsons: 50 },
+        { day: 4, apricots: 110, bananas: 200, cherries: 110, damsons: 90 },
+        { day: 5, apricots: 100, bananas: 220, cherries: 105, damsons: 120 },
+        { day: 6, apricots: 120, bananas: 240, cherries: 105, damsons: 150 },
+        { day: 7, apricots: 80, bananas: 230, cherries: 105, damsons: 150 },
+        { day: 8, apricots: 100, bananas: 215, cherries: 110, damsons: 100 },
+        { day: 9, apricots: 60, bananas: 185, cherries: 105, damsons: 150 },
+        { day: 10, apricots: 120, bananas: 180, cherries: 130, damsons: 150 },
+      ];
+      let xScale = d3
+        .scalePoint()
+        .domain(data.map((item) => item.day))
+        .range([0, innerWidth]);
+      let yScale = d3.scaleLinear().domain([0, 800]).range([innerHeight, 0]);
+
+      let areaGenerator = d3
+        .area()
+        .x(function (d) {
+          return xScale(d.data.day);
+        })
+        .y0(function (d) {
+          return yScale(d[0]);
+        })
+        .y1(function (d) {
+          return yScale(d[1]);
+        })
+        .curve(d3.curveCatmullRom);
+
+      let colors = ["#FBB65B", "#FBCF3B", "#de3163", "#4A79A4"];
+
+      let stack = d3
+        .stack()
+        .keys(["apricots", "bananas", "cherries", "damsons"])
+        .order(d3.stackOrderInsideOut)
+        .offset(d3.stackOffsetWiggle);
+
+      let stackedSeries = stack(data);
+
+      let svg = d3.select("#shape11").attr("width", width).attr("height", height);
+      let g = svg
+        .append("g")
+        .attr("width", innerWidth)
+        .attr("height", innerHeight)
+        .attr("transform", `translate(${margin.left}, ${margin.top})`);
+      g.selectAll("path")
+        .data(stackedSeries)
+        .enter()
+        .append("path")
+        .style("fill", function (d, i) {
+          return colors[i];
+        })
+        .attr("d", areaGenerator);
+    },
+    initChart12() {
+      let width = 1500;
+      let height = 500;
+      let margin = {
+        left: 30,
+        right: 20,
+        top: 20,
+        bottom: 20,
+      };
+      let colors = ["#fbceb1", "#ffe135", "#f7022a", "#854c65"];
+      let innerWidth = width - margin.left - margin.right;
+      let innerHeight = height - margin.top - margin.bottom;
+      let data = [
+        { day: 1, apricots: 100, bananas: 140, cherries: 105, damsons: 80 },
+        { day: 2, apricots: 110, bananas: 150, cherries: 105, damsons: 40 },
+        { day: 3, apricots: 130, bananas: 160, cherries: 115, damsons: 50 },
+        { day: 4, apricots: 110, bananas: 200, cherries: 110, damsons: 90 },
+        { day: 5, apricots: 100, bananas: 220, cherries: 105, damsons: 120 },
+        { day: 6, apricots: 120, bananas: 240, cherries: 105, damsons: 150 },
+        { day: 7, apricots: 80, bananas: 230, cherries: 105, damsons: 150 },
+        { day: 8, apricots: 100, bananas: 215, cherries: 110, damsons: 100 },
+        { day: 9, apricots: 60, bananas: 185, cherries: 105, damsons: 150 },
+        { day: 10, apricots: 120, bananas: 180, cherries: 130, damsons: 150 },
+      ];
+
+      let svg = d3.select("#shape12").attr("width", width).attr("height", height);
+      var pieGenerator = d3.pie();
+
+      var arcGenerator = d3.arc()
+                          .innerRadius(20)
+                          .outerRadius(100)
+                          .padAngle(.02)
+                          .padRadius(100)
+                          .cornerRadius(4);
+                          
+      let g = svg.append("g").attr("width", innerWidth).attr("height", innerHeight);
+
+      let gs = g.selectAll("g").data(data).enter().append("g").attr("transform", function(d, i){
+          if (i< data.length/2) {
+            return `translate(${210*i}, 0)`
+          } else {
+            return `translate(${210*(i-data.length/2)}, 210)`
+          }
+          
+        })
+      gs.selectAll('path')
+        .data(function(d){
+          let newItem = Object.values(d)
+          newItem.shift()
+          return pieGenerator(newItem)
+        })
+        .enter()
+        .append('path')
+        .attr('d', arcGenerator).attr("transform", `translate(100, 100)`)
+        .attr("fill", function(d, i){
+          return colors[i]
+        });
+
+  //     g.selectAll("path")
+  //       .data(data)
+  //       .enter()
+  //       .append("path")
+  //       .attr("d", function (d) {
+  //         let newItem = Object.values(d);
+  //         newItem.shift();
+  //         console.log(newItem)
+  //         return pieGenerator(newItem);
+  //       });
+      // g.selectAll("path").data(function(d){
+      //   retrun pieGenerator()
+      // }).enter().append("path")
+
+      // let pieGenerator = d3.pie();
+      // let newData = []
+
+ 
+      // console.log(pieGenerator(newData[0]))
+    },
   },
 };
 </script>
 
 <style>
 path {
-  fill: none;
+  /* fill: none; */
   stroke: #999;
 }
 .container {
