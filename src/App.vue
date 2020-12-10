@@ -3,7 +3,8 @@
   <!-- <Datajoins></Datajoins> -->
   <!-- <Enterexit></Enterexit> -->
   <!-- <Scales></Scales> -->
-  <Shapes></Shapes>
+  <!-- <Shapes></Shapes> -->
+  <Layouts></Layouts>
 </template>
 
 <script>
@@ -12,7 +13,8 @@
 // import Datajoins from "./components/Datajoins.vue";
 // import Enterexit from "./components/Enterexit.vue";
 // import Scales from "./components/Scales.vue"
-import Shapes from "./components/Shapes.vue"
+// import Shapes from "./components/Shapes.vue"
+import Layouts from "./components/Layouts.vue"
 
 export default {
   name: "App",
@@ -27,7 +29,8 @@ export default {
     // Datajoins,
     // Enterexit,
     // Scales,
-    Shapes
+    // Shapes,
+    Layouts
   },
   mounted() {
 
